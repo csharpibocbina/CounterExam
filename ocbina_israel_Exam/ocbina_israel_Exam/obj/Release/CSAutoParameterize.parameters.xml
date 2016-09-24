@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="CounterDBContext-Web.config Connection String" description="CounterDBContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=(local);Initial Catalog=CounterDB;AttachDbFilename=|DataDirectory|\CounterDB.mdf;Integrated Security=True;MultipleActiveResultSets=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Israel\\documents\\visual\ studio\ 2012\\Projects\\ocbina_israel_Exam\\ocbina_israel_Exam\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CounterDBContext']/@connectionString" />
+  </parameter>
+</parameters>

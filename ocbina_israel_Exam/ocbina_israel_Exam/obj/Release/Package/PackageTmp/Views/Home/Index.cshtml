@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ocbina_israel_Exam.Models.Counter>
+
+@{
+    ViewBag.Title = "Israel Ocbina Exam";
+}
+@*********************************************
+ * Developer    : Israel Ocbina
+ * Date         : 9/23/2016
+ * Description  : This is a counter that count 1...10 but
+ *              it cancels >10 hits. This saves record every hits to the SQL local Database.
+ *              The Database was created at runtime using 
+ *              CODEFIRST approach in EF5. The DB file attached to
+ *              the App_Data root folder in the project. Also, this was
+ *              made with AngularJS v1.5.8.
+ * Note         : README.txt was added in this project.
+ * Copyright    : Cyberocbina ™ 2016.
+ * 
+ * *******************************************@
+<h2>Exam by Israel Ocbina</h2>
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/CustomScripts/Modules/ngAppCounter.js"></script>
+<script src="~/CustomScripts/Controllers/CounterController.js"></script>
+
+<div ng-app="AppCounter" ng-controller="CounterController" ng-init="initCtrVal();">
+    <div>Hit the Button to Count...</div>
+    <input type="button" ng-click="counterClick()" value="{{isFirstLoad==true? newCounterVal = initCounterVal : newCounterVal}}" />
+</div>
+

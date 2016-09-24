@@ -1,0 +1,10 @@
+IMPORTANT!!!!!!!!!!!!!!!
+
+Please Modify the Connection String if the SQL Server was not in local machine or if only SQL Express was installed.
+
+<connectionStrings>
+    <add name="CounterDBContext" connectionString="Data Source=(local);Initial Catalog=CounterDB;AttachDbFilename=|DataDirectory|\CounterDB.mdf;Integrated Security=True;MultipleActiveResultSets=True" providerName="System.Data.SqlClient"/>
+  </connectionStrings>
+
+
+ocbina_jay@yahoo.com
