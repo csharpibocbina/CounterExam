@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using ocbina_israel_Exam.Models;
 using System.Web.Script.Serialization;
 using System.Threading.Tasks;
+using System.Threading;
 
 /*********************************************
  * Developer    : Israel Ocbina
@@ -29,6 +30,7 @@ namespace ocbina_israel_Exam.Controllers
     public partial class HomeController : Controller
     {
         private object oLock = new object();
+        private SynchronizationContext syncContext = new SynchronizationContext();
         #region --Get Counter Value HTTPGET
         [HttpGet]
         public string GetCurrentValue()
@@ -61,32 +63,33 @@ namespace ocbina_israel_Exam.Controllers
                 int latestValue = Convert.ToInt16(serialize.Deserialize<string>(prevVal[0]));
                 int newValue = latestValue;
                 Counter counter = new Counter();
-                using (var counterContext = new CounterDBContext())
+                var counterContext = new CounterDBContext();
                 {
-
                     if (newValue < 1)
                     {
-                        newValue++;
-                        counter.CounterValue = newValue;
+                        syncContext.Post((o) =>
+                        {
+                            newValue++;
+                            counter.CounterValue = newValue;
+                        }, null);
                         counterContext.Entry(counter).State = EntityState.Added;
                         counterContext.SaveChanges();
                     }
                     else if (newValue < 10)
                     {
-
-                        lock (oLock)
-                        {
-                            counter = counterContext.Counters.Where(o => o.CounterValue == latestValue).FirstOrDefault<Counter>();
-                        }
+                        counter = counterContext.Counters.Where(o => o.CounterValue == latestValue).FirstOrDefault<Counter>();
                         newValue++;
-                        counter.CounterValue = newValue;
+                        syncContext.Post((o) =>
+                        {
+                            counter.CounterValue = newValue;
+                        }, null);
                         counterContext.Entry(counter).State = EntityState.Modified;
                         counterContext.SaveChanges();
+                        Thread.Sleep(10);
                     }
                 }
-
                 return serialize.Serialize(newValue.ToString());
-            });
+            },CancellationToken.None);
         }
         #endregion
     }
