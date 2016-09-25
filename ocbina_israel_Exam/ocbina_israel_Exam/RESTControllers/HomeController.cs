@@ -85,7 +85,7 @@ namespace ocbina_israel_Exam.Controllers
                         }, null);
                         counterContext.Entry(counter).State = EntityState.Modified;
                         counterContext.SaveChanges();
-                        Thread.Sleep(10);
+                        Thread.Sleep(50);
                     }
                 }
                 return serialize.Serialize(newValue.ToString());
